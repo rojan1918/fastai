@@ -244,9 +244,9 @@ def verify_images(path:PathOrStr, delete:bool=True, max_workers:int=4, max_size:
                   dest:PathOrStr='.', n_channels:int=3, interp=PIL.Image.BILINEAR, ext:str=None, img_format:str=None,
                   resume:bool=None, **kwargs):
     "Check if the images in `path` aren't broken, maybe resize them and copy it in `dest`."
-    path = Path(path)
+    path = Path(path) #will convert forward slashes into the correct kind of slash for the current operating system
     if resume is None and dest == '.': resume=False
-    dest = path/Path(dest)
+    dest = path/Path(dest) 
     os.makedirs(dest, exist_ok=True)
     files = get_image_files(path, recurse=recurse)
     func = partial(verify_image, delete=delete, max_size=max_size, dest=dest, n_channels=n_channels, interp=interp,
